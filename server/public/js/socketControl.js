@@ -66,11 +66,10 @@ socket.on('retrievedFiles', (obj) => {
   console.log(`Print img-${imageNum}`);
   $('#previews').append($('<br>'))
   $('#previews').append($('<button>')
-  .addClass('btn btn-info btn-sm')
-    .text('Print'))
+  .addClass('btn btn-info btn-print btn-circle btn-sm')
+  .text('Print'))
     .click(function(){
-      socket.emit('managerCommand', {
-        command: 'printImages',
+      socket.emit('printImages', {
         file: obj.files[imageNum],
       });
     })
@@ -146,12 +145,8 @@ function updateCameraInfo(id) {
 
 
   if(camStatus.response == 'ready' || camStatus.response === 'connected'){
-    // alert bar
-    $("#alert").html('');
-    $("#alert").removeClass('alert-info')
-
     // confirm buttons are shown
-    showViews(id, ['snap_btn', 'stream_btn', 'start_btn', 'stop_btn']);
+    showViews(id, ['start_btn']);
   }
 
 
@@ -222,27 +217,26 @@ function buildCameraView(id) {
     id: $('<div>').attr('row'),
     response: $('<h2>')
       .attr('class', 'camera-details-status')
-      .attr('id', 'camera-details-status')
-      .text('response'),
+      .attr('id', 'camera-details-status'),
 
     streaming: $('<h2>')
       .attr('class', 'camera-details-error')
-      .attr('id', 'camera-details-error')
-      .text('streaming'),
+      .attr('id', 'camera-details-error'),
 
     start_btn: $('<button>')
-    .addClass('btn btn-info btn-sm')
-      .text('Start')
+      .addClass('btn btn-info btn-circle btn-start-circ btn-sm')
+      .html('<i class="fa fa-camera" aria-hidden="true"></i>')
       .click(function() {
         socket.emit('managerCommand', {
           command: 'startRecording',
           cameraId: id,
         });
-        hideViews(['stream_image']);
+        hideViews(['stream_image', 'start_btn']);
+        $('#streamImage').attr('display', 'none');
       }),
     stop_btn: $('<button>')
-    .addClass('btn btn-danger streambtn btn-sm')
-    .text('Stop')
+      .addClass('btn btn-danger btn-circle btn-stop-circ streambtn btn-sm')
+      .html('<i class="fa fa-check-circle-o" aria-hidden="true"></i>')
       .click(function() {
         socket.emit('managerCommand', {
           command: 'stopRecording',

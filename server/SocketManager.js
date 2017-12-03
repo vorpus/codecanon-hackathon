@@ -1,6 +1,10 @@
 'use strict';
 
 let cameras = {};
+const fs = require('fs');
+const Printer = require('node-printer');
+
+const printer = new Printer('Canon_SELPHY_CP1200');
 
 function SocketManager(io) {
   let self = this;
@@ -95,6 +99,17 @@ function SocketManager(io) {
       // console.log(obj);
       io.emit('retrievedFiles', obj);
     });
+
+    socket.on('printImages', (obj) => {
+      console.log(obj);
+      const fileName = obj.file;
+      console.log(fileName);
+      // const localFile = __dirname + '/public/' + fileName.match(/(gif\/.+)/)[0];
+      const localFile = __dirname + '/public/' + 'gif/abc.jpg';
+      console.log(localFile)
+      const filebuffer = fs.readFileSync(localFile);
+      const jobFromBuffer = printer.printBuffer(filebuffer);
+    })
 
   });
 }

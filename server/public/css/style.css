@@ -122,10 +122,54 @@ body {
   /*min-height: 460px;*/
 }
 
+.btn-circle {
+  z-index: 500;
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+#previews {
+  white-space: nowrap;
+  width: 100%;
+  overflow-x: scroll;
+  margin-top: 50px;
+}
+
+#previews img {
+  margin-right: 30px;
+}
+
+.btn-print {
+  position:fixed;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.btn-start-circ {
+  left: 60px;
+  position: fixed;
+  bottom: 40px;
+}
+
+.btn-stop-circ {
+  right: 60px;
+  position: fixed;
+  bottom: 40px;
+}
+
 .streamImage {
-    margin:10px auto;
-    height: 500px;
-    width: 1000px;
+  position: fixed;
+  float: left;
+  min-width: 900px;
+  height: 100%;
+  transform: translateX(-50%);
+  left: 0;
+  top: 0;
 }
 button{margin:5px;}
 
