@@ -137,7 +137,19 @@ function connectSocketToServer() {
   });
 
   socket.on('cameraCommand', onCameraCommand);
+  socket.on('managerCommand', onManagerCommand);
+}
 
+function onManagerCommand(obj) {
+  if (obj.target !== bramble.id && obj.target !== 'broadcast') {
+    return;
+  }
+
+  console.log('received command: ');
+  console.log(obj);
+
+  let cmd = obj.command;
+  socketCommands[cmd]();
 }
 
 function onCameraCommand(obj) {

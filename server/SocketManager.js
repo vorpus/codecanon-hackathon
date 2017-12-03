@@ -49,6 +49,20 @@ function SocketManager(io) {
 
     });
 
+    socket.on('managerCommand', (obj) => {
+
+      console.log('managerCommand');
+      console.log(obj);
+      let cameraId = obj.cameraId;
+      let cmd = obj.command;
+
+      io.emit('managerCommand', {
+        target: cameraId,
+        command: cmd
+      });
+
+    });
+
     socket.on('cameraStatus', (obj) => {
       console.log('cameraStatus');
       console.log(obj);

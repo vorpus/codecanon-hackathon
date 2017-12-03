@@ -272,14 +272,14 @@ function buildCameraView(id) {
       }),
     start_btn: $('<button>')
       .click(function() {
-        socket.emit('cameraCommand', {
+        socket.emit('managerCommand', {
           command: 'startRecording',
           cameraId: id,
         });
       }),
     stop_btn: $('<button>')
       .click(function() {
-        socket.emit('cameraCommand', {
+        socket.emit('managerCommand', {
           command: 'stopRecording',
           cameraId: id,
         });

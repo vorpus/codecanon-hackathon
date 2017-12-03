@@ -19,18 +19,14 @@ class CameraManager {
     this._recording = false;
   }
 
-  /**
-   * @returns {Promise}
-   */
   takePhoto() {
-    return this.camera.snap()
+    this.camera.snap()
       .then((response) => {
         console.log('snapped img ' + this._imgCounter);
         this._imgCounter++;
       })
       .then(() => {
         if (this._recording === true) {
-          console.log(this.takePhoto);
           setTimeout(() => {
             this.takePhoto();
           }, this._intervalMs);
