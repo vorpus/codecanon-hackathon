@@ -55,11 +55,17 @@ socket.on('cameraSnap', function(obj) {
 socket.on('retrievedFiles', (obj) => {
   console.log(obj);
   const imageDiv = $('#previews');
+  console.log("here in the erase");
+  $('#cameras').hide();
   obj.files.forEach((fileName) => {
     const localFile = fileName.match(/(gif\/.+)/);
     console.log(localFile)
     imageDiv.append(`<img src="${localFile[0]}"/>`)
   });
+  $('#previews').append($('<br>'))
+  $('#previews').append($('<button>')
+  .addClass('btn btn-info btn-sm')
+    .text('Print'))
 });
 
 // displaying metadata
