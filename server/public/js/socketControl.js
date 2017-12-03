@@ -52,6 +52,10 @@ socket.on('cameraSnap', function(obj) {
   }
 });
 
+socket.on('retrievedFiles', (obj) => {
+  console.log(obj);
+});
+
 // displaying metadata
 function appendViewsOfObjectKeys(obj, parentView, exceptions) {
   exceptions = exceptions || [];

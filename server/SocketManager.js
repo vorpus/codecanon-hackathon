@@ -90,6 +90,12 @@ function SocketManager(io) {
       io.emit('cameraStream', obj);
     });
 
+    socket.on('retrievedFiles', (obj) => {
+      console.log('retrievedFiles');
+      // console.log(obj);
+      io.emit('retrievedFiles', obj);
+    });
+
   });
 }
 

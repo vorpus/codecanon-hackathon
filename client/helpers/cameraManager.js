@@ -1,11 +1,20 @@
+const fs = require('fs');
+
 class CameraManager {
-  constructor(camera) {
+  constructor(camera, bramble) {
     this.camera = camera;
+    this.socket = null;
+    this.bramble = bramble;
     this._intervalMs = 1000;
     this._fullSize = false;
     this._imgCounter = 0;
     this._imgFiles = [];
     this._recording = false;
+    this._photos = null;
+  }
+
+  setSocket(socket) {
+    this.socket = socket;
   }
 
   startRecording() {
@@ -30,6 +39,8 @@ class CameraManager {
           setTimeout(() => {
             this.takePhoto();
           }, this._intervalMs);
+        } else {
+          this._photos = this.getPhotos();
         }
       })
       .catch((error) => {
@@ -39,12 +50,21 @@ class CameraManager {
       });
   }
 
+  emitPhotos(imageFiles) {
+    this.socket.emit('retrievedFiles', {
+      id: this.bramble.id,
+      files: imageFiles,
+    });
+  }
+
   getPhotos() {
+    let imageFiles = [];
+
     let objects;
 		if (this._fullSize) {
-			objects = camera.getLastImage(this._imgCounter);
+			objects = this.camera.getLastImage(this._imgCounter);
     } else {
-			objects = camera.getLastThumb(this._imgCounter);
+			objects = this.camera.getLastThumb(this._imgCounter);
     }
 
     objects
@@ -53,7 +73,8 @@ class CameraManager {
 
         for (let i = 0; i < response.length; i++) {
 
-          let filename = 'gif/gif-img-' + i + '.jpg';
+          let filename = __dirname + '/../../server/public/gif/gif-img-' + i + '.jpg';
+          // let filename = __dirname + '/server/public/gif/gif-img-' + i + '.jpg';
 
           let obj = response[i].image;
 
@@ -62,6 +83,11 @@ class CameraManager {
           console.log('saved ' + filename);
           imageFiles[i] = filename;
         }
+
+        this.socket.emit('retrievedFiles', {
+          id: this.bramble.id,
+          files: imageFiles,
+        });
       })
   }
 }
