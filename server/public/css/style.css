@@ -1,0 +1,176 @@
+body {
+  background: #F1F3FA;
+}
+
+#alert{text-align:center;}
+
+/* camera */
+#cameras h1{text-align:center}
+
+.camera {
+  margin: 20px 0;
+}
+
+.camera-content li{
+  text-align:center;
+  list-style-type:none
+}
+
+.camera-sidebar {
+  padding: 20px 0 0 0;
+  background: #fff;
+}
+
+.camera-userpic img {
+  float: none;
+  margin: 0 auto;
+  width: 50%;
+  height: 50%;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  border-radius: 50% !important;
+}
+
+.camera-details {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.camera-details-name {
+  color: #5a7391;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.camera-details-status {
+  text-align:center;
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.camera-details-error {
+  text-align:center;
+  text-transform: uppercase;
+  color: #e74c3c;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.camera-userbuttons {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.camera-userbuttons .btn {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 15px;
+  margin-right: 5px;
+}
+
+.camera-userbuttons .btn:last-child {
+  margin-right: 0px;
+}
+
+.camera-menu {
+  margin-top: 30px;
+}
+
+.camera-menu ul li {
+  border-bottom: 1px solid #f0f4f7;
+}
+
+.camera-menu ul li:last-child {
+  border-bottom: none;
+}
+
+.camera-menu ul li a {
+  color: #93a3b5;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.camera-menu ul li a i {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.camera-menu ul li a:hover {
+  background-color: #fafcfd;
+  color: #5b9bd1;
+}
+
+.camera-menu ul li.active {
+  border-bottom: none;
+}
+
+.camera-menu ul li.active a {
+  color: #5b9bd1;
+  background-color: #f6f9fb;
+  border-left: 2px solid #5b9bd1;
+  margin-left: -2px;
+}
+
+.camera-content {
+  background: #fff;
+  /*min-height: 460px;*/
+}
+
+.streamImage {
+    margin:10px auto;
+    height: 500px;
+    width: 1000px;
+}
+button{margin:5px;}
+
+
+/* FEED */
+.activity-feed {
+  padding: 15px;
+}
+.activity-feed .feed-item {
+  position: relative;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  border-left: 2px solid #e4e8eb;
+}
+.activity-feed .feed-item:last-child {
+  border-color: transparent;
+}
+.activity-feed .feed-item:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: -6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #f37167;
+}
+.activity-feed .feed-item .date {
+  position: relative;
+  top: -5px;
+  color: #8c96a3;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+.activity-feed .feed-item .text {
+  position: relative;
+  top: -3px;
+}
+
+input[type=checkbox] {
+    margin-top:-3px;
+    margin-left:5px;
+    padding-left:5px;
+    padding-right:5px;
+    border-radius:15px;
+}
