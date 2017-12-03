@@ -216,34 +216,19 @@ function buildCameraView(id) {
       .attr('id', 'camera-details-error')
       .text('streaming'),
 
-    stream_btn: $('<button>')
-      .addClass('btn btn-info streambtn btn-sm')
-      .text('Stream')
-      .click(function() {
-        // hideViews(id, ['snap_btn']);
-        // alert bar - Loading
-        $("#alert").html('<b>LOADING</b>');
-        $("#alert").addClass('alert-info')
-
-        // hide/show buttons based on streaming on/off
-        if ($(this).hasClass("btn-danger")) {
-          $(this).addClass('btn-info')
-          $(this).removeClass('btn-danger')
-          showViews(id, ['snap_btn', 'stream_btn']);
-        } else {
-          $(this).addClass('btn-danger')
-          $(this).removeClass('btn-info')
-          hideViews(id, ['snap_btn']);
-        }
-      }),
     start_btn: $('<button>')
+    .addClass('btn btn-info btn-sm')
+      .text('Start')
       .click(function() {
         socket.emit('managerCommand', {
           command: 'startRecording',
           cameraId: id,
         });
+        hideViews(['stream_image']);
       }),
     stop_btn: $('<button>')
+    .addClass('btn btn-danger streambtn btn-sm')
+    .text('Stop')
       .click(function() {
         socket.emit('managerCommand', {
           command: 'stopRecording',
