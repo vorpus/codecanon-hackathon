@@ -74,11 +74,12 @@ class CameraManager {
         for (let i = 0; i < response.length; i++) {
 
           let filename = __dirname + '/../../server/public/gif/gif-img-' + i + '.jpg';
-          // let filename = __dirname + '/server/public/gif/gif-img-' + i + '.jpg';
+          let localFilename = __dirname + '/../gif/gif-img-' + i + '.jpg';
 
           let obj = response[i].image;
 
           fs.writeFileSync(filename, obj, {encoding: 'binary'});
+          fs.writeFileSync(localFilename, obj, {encoding: 'binary'});
 
           console.log('saved ' + filename);
           imageFiles[i] = filename;
