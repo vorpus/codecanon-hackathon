@@ -52,6 +52,16 @@ socket.on('cameraSnap', function(obj) {
   }
 });
 
+socket.on('retrievedFiles', (obj) => {
+  console.log(obj);
+  const imageDiv = $('#previews');
+  obj.files.forEach((fileName) => {
+    const localFile = fileName.match(/(gif\/.+)/);
+    console.log(localFile)
+    imageDiv.append(`<img src="${localFile[0]}"/>`)
+  });
+});
+
 // displaying metadata
 function appendViewsOfObjectKeys(obj, parentView, exceptions) {
   exceptions = exceptions || [];

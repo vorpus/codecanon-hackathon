@@ -18,7 +18,7 @@ let SERVER_URL = 'http://0.0.0.0:5000';
 
 let socket;
 let camera = new Camera();
-const cameraManager = new CameraManager(camera);
+const cameraManager = new CameraManager(camera, bramble);
 
 let cameraStatus = {
   response: 'connected',
@@ -135,6 +135,8 @@ function connectSocketToServer() {
     console.log('socket disconnected');
     clearInterval(timers.status_loop);
   });
+
+  cameraManager.setSocket(socket);
 
   socket.on('cameraCommand', onCameraCommand);
   socket.on('managerCommand', onManagerCommand);
