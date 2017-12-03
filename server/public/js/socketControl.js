@@ -111,7 +111,13 @@ socket.on('cameraStatus', function(obj) {
 function updateCameraInfo(id) {
   let camStatus = cameras._status[id];
   if (camStatus === undefined) return;
-
+  if(camStatus.streaming !== 'on'){
+    console.log('requesting stream');
+    socket.emit('cameraCommand', {
+      command: 'stream',
+      cameraId: id
+    });
+  }
   let camInfo = cameras._info[id];
 
   if (camInfo === undefined) {
@@ -141,8 +147,8 @@ function updateCameraInfo(id) {
     $("#alert").removeClass('alert-info')
 
     // hide snap button when streaming
-    hideViews(id, ['snap_btn']);
-    showViews(id, ['liveview_data', 'camera_menu', 'stream_image', 'facedetection_btn']);
+
+    showViews(id, ['stream_image']);
 
 
     if (camInfo.stream.drawTimer === undefined) {
@@ -200,28 +206,6 @@ function buildCameraView(id) {
   var children = {
     // client info
     id: $('<div>').attr('row'),
-    sidebar: $('<div>')
-      .attr('class', '')
-      .append(
-        $('<div>')
-        .attr('class', 'camera-sidebar')
-        .append(
-          $('<div>')
-          .attr('class', 'camera-details')
-          .append(
-            $('<div>')
-            .attr('class', 'camera-details-name')
-            .text('Camera: ' + id)
-          ).append(
-            $('<div>')
-            .attr('class', 'camera-userpic')
-            .append(
-              $('<i>')
-              .attr('class', 'fa fa-camera fa-5x')
-            )
-          )
-        )
-      ),
     response: $('<h2>')
       .attr('class', 'camera-details-status')
       .attr('id', 'camera-details-status')
@@ -232,29 +216,6 @@ function buildCameraView(id) {
       .attr('id', 'camera-details-error')
       .text('streaming'),
 
-    snap_btn: $('<button>')
-      .addClass('btn btn-success snapbtn btn-sm')
-      .text('Snap')
-      .click(function() {
-        // hide buttons
-        hideViews(id, ['snap_btn', 'stream_btn']);
-
-        // alert bar - Cheese!!!
-        $("#alert").html('<b>Cheese!!!</b>');
-        $("#alert").addClass('alert-warning')
-        setTimeout(function() {
-          // alert bar - Loading
-          $("#alert").addClass('alert-info')
-          $("#alert").removeClass('alert-warning')
-          $("#alert").html('<b>LOADING</b>');
-        }, 1000)
-
-        console.log('requesting snap');
-        socket.emit('cameraCommand', {
-          command: 'snap',
-          cameraId: id
-        });
-      }),
     stream_btn: $('<button>')
       .addClass('btn btn-info streambtn btn-sm')
       .text('Stream')
@@ -274,11 +235,6 @@ function buildCameraView(id) {
           $(this).removeClass('btn-info')
           hideViews(id, ['snap_btn']);
         }
-        console.log('requesting stream');
-        socket.emit('cameraCommand', {
-          command: 'stream',
-          cameraId: id
-        });
       }),
     start_btn: $('<button>')
       .click(function() {
@@ -295,21 +251,6 @@ function buildCameraView(id) {
         });
       }),
     br1: $('<br>'),
-    facedetection_btn: $('<div>')
-      .text('Face Detection')
-      .append(
-        $('<input>', {
-          type: 'checkbox'
-        })
-        .attr('id', 'face_detection')
-        .addClass('btn btn-lg btn-toggle')
-        .attr('data-toggle', 'toggle')
-        .attr('aria-pressed', 'true')
-        .append(
-          $('<div>')
-          .addClass('handle')
-        )
-      ),
     stream_image: $('<canvas>')
       .prop({
         width: 480,
@@ -319,24 +260,7 @@ function buildCameraView(id) {
       .attr('id', 'streamImage'),
     camera_menu: $('<div>')
       .attr('id', 'camera-menu')
-      .attr('class', 'camera-menu').append(
-        $('<ul>')
-        .attr('class', 'nav')
-        .append(
-          $('<li>')
-          .attr('class', 'active')
-          .append(
-            $('<a>')
-            .data('data-toggle', 'tab')
-            .attr('href', '#home')
-            .html('<i class="fa fa-home"></i>Meta Data')
-          )
-        )
-      ),
-    liveview_data: $('<div>')
-      .attr('id', 'liveview_data')
-      .text(''),
-    br3: $('<br>'),
+      .attr('class', 'camera-menu')
   };
 
   registerViews(children, id);
@@ -353,13 +277,10 @@ function registerViews(children, camId) {
   // Store view references
   saveViewReference(children, camId, 'sidebar');
   saveViewReference(children, camId, 'response');
-  saveViewReference(children, camId, 'facedetection_btn');
-  saveViewReference(children, camId, 'snap_btn');
   saveViewReference(children, camId, 'stream_btn');
   saveViewReference(children, camId, 'streaming');
   saveViewReference(children, camId, 'camera_menu');
   saveViewReference(children, camId, 'stream_image');
-  saveViewReference(children, camId, 'liveview_data');
 }
 
 function updateViews(id) {
@@ -466,10 +387,13 @@ function drawLiveview(camId) {
   };
 
   // update the live view data
-  let dataView = camView.liveview_data;
-  dataView.empty();
-  let exceptions = ['image'];
-  appendViewsOfObjectKeys(camInfo.stream.data, dataView, exceptions);
+  if(camView.liveview_data){
+    let dataView = camView.liveview_data;
+    console.log(camView);
+    dataView.empty();
+    let exceptions = ['image'];
+    appendViewsOfObjectKeys(camInfo.stream.data, dataView, exceptions);
+  }
 
 }
 ////////////////////////////////////////////////////////////////////////////////
