@@ -64,6 +64,7 @@ socket.on('retrievedFiles', (obj) => {
   });
   const imageNum = Math.floor(Math.random()*obj.files.length);
   console.log(`Print img-${imageNum}`);
+  $('img').click((el) => {$(el.target).attr('style', 'box-shadow:0 0 0 #fff')})
   $('#previews').append($('<br>'))
   $('#previews').append($('<button>')
   .addClass('btn btn-info btn-print btn-circle btn-sm')
