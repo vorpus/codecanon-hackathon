@@ -1,6 +1,6 @@
 # Flipshow
 
-![Imgur](https://i.imgur.com/GVvVqxh.gifv)
+[Example](https://i.imgur.com/GVvVqxh.gifv)
 
 http://www.hackathon.io/flipshow
 
