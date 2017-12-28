@@ -1,10 +1,7 @@
-# README #
+# Flipshow
 
-CodeCanon Hackathon
+![Imgur](https://i.imgur.com/GVvVqxh.gifv)
 
-written by Tome Software under NDA with Canon USA.
+http://www.hackathon.io/flipshow
 
-### Overview of this codebase ###
-
-* hackathon-demo - (client/server) node.js app showing basic functionality of Canon MM100-WS
-* howielib - Node PTP-IP API wrapper for Canon MM100-WS  **required for hackathon-demo**
+Our entry to codecanon hackathon. Takes a series of photos and prints a flipbook out on the CANON SELPHIE photo printer.
